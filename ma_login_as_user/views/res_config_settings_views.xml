@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_login_as" model="ir.ui.view">
+        <field name="name">res.config.settings.login.as.user</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app string="Login as Any User" name="ma_login_as_user" groups="base.group_system">
+                    <block title="Session switching policy">
+                        <setting string="Allow switching into Settings administrators" help="Off by default. Root and OdooBot accounts are never eligible.">
+                            <field name="ma_login_allow_administrators"/>
+                        </setting>
+                        <setting string="Allow portal users">
+                            <field name="ma_login_allow_portal"/>
+                        </setting>
+                        <setting string="Permitted target scope">
+                            <field name="ma_login_target_scope"/>
+                            <div class="content-group" invisible="ma_login_target_scope != 'groups'">
+                                <field name="ma_login_allowed_group_ids" widget="many2many_tags"/>
+                            </div>
+                        </setting>
+                        <setting string="Require a reason (minimum 5 characters)">
+                            <field name="ma_login_require_reason"/>
+                        </setting>
+                        <setting string="Maximum session duration">
+                            <field name="ma_login_max_duration"/>
+                        </setting>
+                        <setting string="Notify the target user">
+                            <field name="ma_login_notify_target"/>
+                        </setting>
+                        <setting string="Production lock" help="Blocks all switching and hides the switcher.">
+                            <field name="ma_login_production_lock"/>
+                        </setting>
+                        <setting string="IP allowlist" help="Optional comma-separated IP/CIDR ranges; empty means unrestricted.">
+                            <field name="ma_login_ip_allowlist" placeholder="192.0.2.0/24, 2001:db8::/32"/>
+                        </setting>
+                        <setting string="Detailed action metadata">
+                            <field name="ma_login_detailed_actions"/>
+                        </setting>
+                        <setting string="Audit retention">
+                            <field name="ma_login_retention_days"/>
+                        </setting>
+                        <setting string="Keyboard shortcut">
+                            <field name="ma_login_shortcut_enabled"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+</odoo>

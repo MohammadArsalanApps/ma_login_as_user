@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_users_form_login_as" model="ir.ui.view">
+        <field name="name">res.users.form.login.as.user</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/header" position="inside">
+                <button name="action_ma_login_as" type="object" string="Login as this user" icon="fa-exchange"
+                        groups="ma_login_as_user.group_impersonation_manager"
+                        invisible="id == uid or not active"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_login_as_user_from_list" model="ir.actions.server">
+        <field name="name">Login as</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="binding_model_id" ref="base.model_res_users"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('group_impersonation_manager'))]"/>
+        <field name="state">code</field>
+        <field name="code">action = records.action_ma_login_as()</field>
+    </record>
+</odoo>

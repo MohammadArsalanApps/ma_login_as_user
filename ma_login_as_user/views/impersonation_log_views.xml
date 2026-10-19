@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_impersonation_log_search" model="ir.ui.view">
+        <field name="name">ma.impersonation.log.search</field>
+        <field name="model">ma.impersonation.log</field>
+        <field name="arch" type="xml">
+            <search string="Impersonation Audit">
+                <field name="admin_id"/>
+                <field name="target_id"/>
+                <field name="status"/>
+                <filter name="today" string="Today" domain="[('start', '&gt;=', context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+                <filter name="active" string="Active now" domain="[('status', '=', 'active')]"/>
+                <filter name="this_week" string="This week" domain="[('start', '&gt;=', (context_today() - relativedelta(days=6)).strftime('%Y-%m-%d 00:00:00'))]"/>
+                <separator/>
+                <filter name="by_admin" string="Administrator" context="{'group_by': 'admin_id'}"/>
+                <filter name="by_target" string="Target user" context="{'group_by': 'target_id'}"/>
+                <filter name="by_month" string="Month" context="{'group_by': 'start:month'}"/>
+            </search>
+        </field>
+    </record>
+    <record id="view_impersonation_log_list" model="ir.ui.view">
+        <field name="name">ma.impersonation.log.list</field>
+        <field name="model">ma.impersonation.log</field>
+        <field name="arch" type="xml">
+            <list string="Impersonation Audit" create="false" edit="false" delete="false">
+                <field name="start"/>
+                <field name="admin_id"/>
+                <field name="target_id"/>
+                <field name="company_id" optional="show"/>
+                <field name="reason" optional="show"/>
+                <field name="duration_seconds" optional="hide"/>
+                <field name="request_count"/>
+                <field name="write_count"/>
+                <field name="status"/>
+                <field name="end" optional="hide"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_impersonation_log_form" model="ir.ui.view">
+        <field name="name">ma.impersonation.log.form</field>
+        <field name="model">ma.impersonation.log</field>
+        <field name="arch" type="xml">
+            <form string="Impersonation Audit" create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <group><field name="admin_id"/><field name="target_id"/><field name="company_id"/><field name="status"/></group>
+                        <group><field name="start"/><field name="end"/><field name="duration_seconds"/><field name="database_name"/></group>
+                    </group>
+                    <group string="Session details">
+                        <field name="reason"/><field name="ip_address"/><field name="user_agent"/><field name="session_hash"/>
+                        <field name="request_count"/><field name="write_count"/><field name="detail_enabled"/>
+                    </group>
+                    <group string="Optional ORM action metadata" invisible="not detail_enabled">
+                        <field name="action_ids" nolabel="1">
+                            <list create="false" edit="false" delete="false">
+                                <field name="event_time"/><field name="operation"/><field name="model_name"/><field name="record_count"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_impersonation_log_pivot" model="ir.ui.view">
+        <field name="name">ma.impersonation.log.pivot</field>
+        <field name="model">ma.impersonation.log</field>
+        <field name="arch" type="xml">
+            <pivot string="Impersonation Audit">
+                <field name="admin_id" type="row"/>
+                <field name="target_id" type="row"/>
+                <field name="start" interval="month" type="col"/>
+                <field name="request_count" type="measure"/>
+                <field name="write_count" type="measure"/>
+                <field name="duration_seconds" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="action_impersonation_log" model="ir.actions.act_window">
+        <field name="name">Impersonation Log</field>
+        <field name="res_model">ma.impersonation.log</field>
+        <field name="view_mode">list,form,pivot</field>
+        <field name="search_view_id" ref="view_impersonation_log_search"/>
+    </record>
+    <menuitem id="menu_impersonation_log" name="Impersonation Log" parent="base.menu_custom"
+              action="action_impersonation_log" sequence="80"
+              groups="ma_login_as_user.group_impersonation_manager,ma_login_as_user.group_impersonation_auditor"/>
+</odoo>

@@ -1,0 +1,44 @@
+<section style="max-width:900px;margin:0 auto;padding:40px 18px 56px;font-family:Arial,Helvetica,sans-serif;color:#344054;line-height:1.6">
+  <div style="text-align:center;padding:18px 0 24px">
+    <p style="margin:0 0 8px;color:#714b67;font-size:12px;font-weight:700;letter-spacing:2px">ODOO 19 &middot; ON-PREMISE</p>
+    <h1 style="margin:0;color:#101828;font-size:38px;line-height:1.15">Login as Any User</h1>
+    <p style="max-width:690px;margin:12px auto 0;font-size:17px">A controlled, audited way for authorized administrators to support users in their actual Odoo context.</p>
+    <p style="margin:16px 0 0;color:#475467;font-size:14px">&#10003; Permission-scoped access &nbsp; &#10003; Visible session banner &nbsp; &#10003; Read-only audit trail</p>
+  </div>
+
+  <div style="margin:14px auto 0;max-width:860px;padding:8px;border:1px solid #e7e9ee;border-radius:16px;background:#fff;box-shadow:0 14px 36px rgba(16,24,40,.12)">
+    <video controls muted autoplay loop playsinline preload="metadata" poster="/ma_login_as_user/static/description/poster.png" style="width:100%;display:block;border-radius:10px;background:#f4eff4">
+      <source src="/ma_login_as_user/static/description/demo-full.mp4" type="video/mp4">
+      Your browser does not support the video element. Use the screenshots below to preview the module.
+    </video>
+  </div>
+  <p style="margin:10px 0 0;text-align:center;color:#667085;font-size:13px">Complete walkthrough: configuration, group access, switching, return flow and audit review. Fictional demo users only.</p>
+
+  <h2 style="margin:42px 0 10px;padding-bottom:8px;border-bottom:3px solid #714b67;color:#101828;font-size:26px">Accountable support access</h2>
+  <p>Switching is limited to the <strong>Impersonation Manager</strong> group and checked on the server. Odoo continues to enforce the target user's access rights and record rules. A clear session banner identifies the active target and provides a one-click return.</p>
+  <ul style="padding-left:22px">
+    <li>Search eligible users by name, login or email from the backend systray.</li>
+    <li>Favorite users and revisit the five most recently used accounts.</li>
+    <li>Switch from a user form or from one selected user in the users list.</li>
+    <li>Configure company and group scope, portal and administrator restrictions, required reason, maximum duration, IP allowlist and production lock.</li>
+    <li>Grant separate read-only access to audit records with the Impersonation Auditor group.</li>
+    <li>Review session timing, company, reason, source, session digest, request count and ORM write count.</li>
+  </ul>
+
+  <h2 style="margin:38px 0 10px;padding-bottom:8px;border-bottom:3px solid #714b67;color:#101828;font-size:26px">Screenshots</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:14px">
+    <figure style="flex:1 1 100%;margin:0">
+      <img src="/ma_login_as_user/static/description/screenshot_01_switcher.png" alt="Backend user switcher with recent, favorite and searchable demo accounts" style="display:block;width:100%;height:auto;border:1px solid #e7e9ee;border-radius:12px">
+      <figcaption style="margin-top:6px;color:#667085;font-size:13px">Search, favorites and recent targets in the backend switcher.</figcaption>
+    </figure>
+    <figure style="flex:1 1 100%;margin:0">
+      <img src="/ma_login_as_user/static/description/screenshot_02_access_groups.png" alt="Odoo user access rights with the Impersonation Manager group assigned" style="display:block;width:100%;height:auto;border:1px solid #e7e9ee;border-radius:12px">
+      <figcaption style="margin-top:6px;color:#667085;font-size:13px">Assign the manager role through the user's existing Access Rights.</figcaption>
+    </figure>
+  </div>
+
+  <h2 style="margin:38px 0 10px;padding-bottom:8px;border-bottom:3px solid #714b67;color:#101828;font-size:26px">Requirements and responsible use</h2>
+  <p><strong>Compatibility:</strong> Odoo 19.0 on-premise. Dependencies: <code style="padding:2px 5px;background:#f2f4f7;border-radius:4px">base</code>, <code style="padding:2px 5px;background:#f2f4f7;border-radius:4px">web</code> and <code style="padding:2px 5px;background:#f2f4f7;border-radius:4px">mail</code>.</p>
+  <p>The target user remains subject to normal Odoo access rights and record rules. The manager must complete Odoo's regular authentication flow, including MFA when configured. The module does not read target passwords, API keys, TOTP secrets, password hashes or authentication tokens. The optional target notice posts an internal note.</p>
+  <p style="padding:14px 16px;border-left:3px solid #f79009;background:#fffaeb;border-radius:6px"><strong>Security note:</strong> Impersonation exposes the target user's data and permits actions available to that user. Use only under your organization's data-protection policy and validate the configuration on a staging database before production use.</p>
+</section>

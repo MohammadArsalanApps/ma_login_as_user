@@ -5,6 +5,8 @@
     "category": "Administration/Settings",
     "author": "MA Software Solutions",
     "license": "LGPL-3",
+    "price": 29.99,
+    "currency": "USD",
     "depends": ["base", "web", "mail"],
     "data": [
         "security/groups.xml",

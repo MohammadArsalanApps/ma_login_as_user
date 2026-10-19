@@ -1,0 +1,23 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Project-Id-Version: Odoo Server 19.0\n"
+
+msgid "Switch user"
+msgstr ""
+
+msgid "Return to my account"
+msgstr ""
+
+msgid "Impersonation Manager"
+msgstr ""
+
+msgid "Impersonation Auditor"
+msgstr ""
+
+msgid "Impersonation Log"
+msgstr ""
+
+msgid "You are not allowed to use this feature."
+msgstr ""

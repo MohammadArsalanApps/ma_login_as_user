@@ -1,0 +1,32 @@
+{
+    "name": "Login as Any User",
+    "summary": "Audited, permission-aware user session switching for Odoo 19 on-premise",
+    "version": "19.0.1.0.0",
+    "category": "Administration/Settings",
+    "author": "MA Software Solutions",
+    "license": "LGPL-3",
+    "depends": ["base", "web", "mail"],
+    "data": [
+        "security/groups.xml",
+        "security/ir.model.access.csv",
+        "security/record_rules.xml",
+        "views/res_config_settings_views.xml",
+        "views/res_users_views.xml",
+        "views/impersonation_log_views.xml",
+        "data/ir_cron.xml",
+    ],
+    "assets": {
+        "web.assets_backend": [
+            "ma_login_as_user/static/src/js/impersonation_service.js",
+            "ma_login_as_user/static/src/js/switcher.js",
+            "ma_login_as_user/static/src/js/banner.js",
+            "ma_login_as_user/static/src/xml/impersonation.xml",
+            "ma_login_as_user/static/src/scss/impersonation.scss",
+        ],
+    },
+    "images": ["static/description/banner.png"],
+    "post_init_hook": "post_init_hook",
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+}

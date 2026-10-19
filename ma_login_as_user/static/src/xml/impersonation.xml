@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="ma_login_as_user.Switcher" owl="1">
+        <div class="ma_login_as ma_login_as_switcher_root" t-if="state.initialized and (serviceState.enabled or serviceState.impersonating)">
+            <button t-if="serviceState.enabled" class="o_nav_entry ma_login_as_trigger" type="button" title="Switch user" aria-label="Switch user"
+                    t-att-aria-expanded="state.open" t-on-click="() => this.toggle()">
+                <i class="fa fa-user-secret" aria-hidden="true"/>
+                <span t-if="serviceState.impersonating" class="ma_login_as_dot" aria-label="Impersonation active"/>
+            </button>
+            <section t-if="state.open" class="ma_login_as_popover" aria-label="Switch user">
+                <div class="ma_login_as_popover_head">
+                    <div><small>ACCOUNT ACCESS</small><h3>Switch user</h3></div>
+                    <button type="button" class="ma_login_as_close" aria-label="Close switcher" t-on-click="() => this.toggle(false)"><i class="fa fa-times"/></button>
+                </div>
+                <label class="ma_login_as_search"><i class="fa fa-search" aria-hidden="true"/><input t-ref="search" type="search" placeholder="Search name, login or email" t-att-value="state.query" t-on-input="onSearch" t-on-keydown="onKeydown"/></label>
+                <div t-if="serviceState.error" class="ma_login_as_error" role="alert"><t t-esc="serviceState.error"/></div>
+                <div t-if="state.pending" class="ma_login_as_reason">
+                    <strong>Switch to <t t-esc="state.pending.name"/>?</strong>
+                    <label>Reason<input type="text" maxlength="500" t-att-value="state.reason" t-on-input="(ev) => state.reason = ev.target.value" placeholder="At least 5 characters"/></label>
+                    <div class="ma_login_as_reason_actions"><button type="button" class="btn btn-secondary" t-on-click="() => state.pending = null">Cancel</button><button type="button" class="btn btn-primary" t-on-click="confirmSwitch">Continue</button></div>
+                </div>
+                <div t-else="" class="ma_login_as_results">
+                    <t t-if="!state.query and serviceState.recents.length">
+                        <div class="ma_login_as_section">Recent</div>
+                        <t t-foreach="serviceState.recents" t-as="user" t-key="user.id"><t t-call="ma_login_as_user.UserRow"/></t>
+                    </t>
+                    <t t-if="!state.query and serviceState.favorites.length">
+                        <div class="ma_login_as_section">Favorites</div>
+                        <t t-foreach="serviceState.favorites" t-as="user" t-key="user.id"><t t-call="ma_login_as_user.UserRow"/></t>
+                    </t>
+                    <div class="ma_login_as_section"><t t-if="state.query">Search results</t><t t-else="">All users</t></div>
+                    <t t-if="state.loading and !state.results.length"><div class="ma_login_as_empty">Searching users...</div></t>
+                    <t t-elif="state.results.length">
+                        <t t-foreach="state.results" t-as="user" t-key="user.id"><t t-call="ma_login_as_user.UserRow"/></t>
+                        <button t-if="state.hasMore" class="ma_login_as_more" type="button" t-on-click="() => this.loadSearch(true)">Load more</button>
+                    </t>
+                    <div t-else="" class="ma_login_as_empty">No eligible users found.</div>
+                </div>
+                <div class="ma_login_as_shortcut" t-if="serviceState.shortcut">Shortcut: Ctrl + Shift + U</div>
+            </section>
+        </div>
+    </t>
+
+    <t t-name="ma_login_as_user.UserRow" owl="1">
+        <div class="ma_login_as_user_row" t-att-class="{'is-active': state.activeIndex === user_index}" t-on-click="() => this.selectUser(user)" role="button" tabindex="0">
+            <img class="ma_login_as_avatar" t-att-src="user.avatar" alt="" loading="lazy"/>
+            <div class="ma_login_as_user_info"><strong t-esc="user.name"/><span><t t-esc="user.login"/> <span class="ma_login_as_company" t-if="user.company">· <t t-esc="user.company"/></span></span></div>
+            <span class="ma_login_as_kind" t-att-class="user.kind === 'Portal' ? 'is-portal' : ''"><t t-esc="user.kind"/></span>
+            <button class="ma_login_as_star" type="button" t-att-aria-label="isFavorite(user) ? 'Remove favorite' : 'Add favorite'" t-on-click="(ev) => this.toggleFavorite(user, ev)"><i t-att-class="isFavorite(user) ? 'fa fa-star' : 'fa fa-star-o'"/></button>
+        </div>
+    </t>
+
+    <t t-name="ma_login_as_user.Banner" owl="1">
+        <div t-if="state.initialized and data.impersonating" class="ma_login_as ma_login_as_banner" role="status" aria-live="polite">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"/>
+            <span>You are logged in as <strong t-esc="data.target?.name"/> (<t t-esc="data.target?.login"/>). Impersonated by <strong t-esc="data.admin?.name"/>.</span>
+            <span class="ma_login_as_timer"><i class="fa fa-clock-o"/> <t t-esc="elapsed"/></span>
+            <button type="button" class="ma_login_as_return" t-on-click="returnToAdmin"><i class="fa fa-undo"/> Return to my account</button>
+        </div>
+    </t>
+
+    <t t-name="ma_login_as_user.OpenSwitcherAction" owl="1">
+        <div class="ma_login_as ma_login_as_action"><div class="ma_login_as_action_card"><i class="fa fa-user-secret"/><h3>Switching user...</h3><p t-if="impersonation.state.error" role="alert" t-esc="impersonation.state.error"/><p t-else="">The session will reload as the selected user.</p></div></div>
+    </t>
+
+    <t t-inherit="web.WebClient" t-inherit-mode="extension">
+        <xpath expr="//NavBar" position="before"><ImpersonationBanner/></xpath>
+    </t>
+</templates>

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_impersonation_log_manager,impersonation log manager,model_ma_impersonation_log,ma_login_as_user.group_impersonation_manager,1,0,0,0
+access_impersonation_log_auditor,impersonation log auditor,model_ma_impersonation_log,ma_login_as_user.group_impersonation_auditor,1,0,0,0
+access_impersonation_action_manager,impersonation action manager,model_ma_impersonation_action,ma_login_as_user.group_impersonation_manager,1,0,0,0
+access_impersonation_action_auditor,impersonation action auditor,model_ma_impersonation_action,ma_login_as_user.group_impersonation_auditor,1,0,0,0
+access_impersonation_preference_none,impersonation preference private,model_ma_impersonation_preference,base.group_user,0,0,0,0

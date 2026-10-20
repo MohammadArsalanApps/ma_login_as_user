@@ -1,5 +1,7 @@
+/** @odoo-module **/
+
 import { registry } from "@web/core/registry";
-import { rpc } from "@web/core/network/rpc";
+import { jsonrpc } from "@web/core/network/rpc_service";
 import { reactive } from "@odoo/owl";
 
 const service = {
@@ -20,7 +22,7 @@ const service = {
         });
 
         async function call(route, params = {}) {
-            return rpc(route, { csrf_token: odoo.csrf_token, ...params });
+            return jsonrpc(route, { csrf_token: odoo.csrf_token, ...params });
         }
 
         async function refresh() {

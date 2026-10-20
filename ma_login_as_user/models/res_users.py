@@ -11,9 +11,9 @@ class ResUsers(models.Model):
         manager_group = self.env.ref("ma_login_as_user.group_impersonation_manager", raise_if_not_found=False)
         auditor_group = self.env.ref("ma_login_as_user.group_impersonation_auditor", raise_if_not_found=False)
         protected_groups = {group.id for group in (manager_group, auditor_group) if group}
-        if "group_ids" in vals and not self.env.su and not self.env.user.has_group("base.group_system"):
-            commands = vals["group_ids"]
-            protected_member = any(protected_groups & set(user.group_ids.ids) for user in self)
+        if "groups_id" in vals and not self.env.su and not self.env.user.has_group("base.group_system"):
+            commands = vals["groups_id"]
+            protected_member = any(protected_groups & set(user.groups_id.ids) for user in self)
             changed_protected = any(
                 isinstance(command, (tuple, list))
                 and len(command) > 1

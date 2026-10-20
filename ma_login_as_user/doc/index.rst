@@ -4,7 +4,7 @@ Login as Any User
 Overview
 --------
 
-This on-premise Odoo 19.0 module enables a designated Impersonation Manager to
+This on-premise Odoo 17.0 module (Community or Enterprise) enables a designated Impersonation Manager to
 open an eligible user's session for support and testing. It keeps the target
 user as the effective Odoo user so normal access rights and record rules apply.
 The session is auditable and can be returned to the original manager without

@@ -22,7 +22,7 @@
         <field name="name">ma.impersonation.log.list</field>
         <field name="model">ma.impersonation.log</field>
         <field name="arch" type="xml">
-            <list string="Impersonation Audit" create="false" edit="false" delete="false">
+            <tree string="Impersonation Audit" create="false" edit="false" delete="false">
                 <field name="start"/>
                 <field name="admin_id"/>
                 <field name="target_id"/>
@@ -33,7 +33,7 @@
                 <field name="write_count"/>
                 <field name="status"/>
                 <field name="end" optional="hide"/>
-            </list>
+            </tree>
         </field>
     </record>
     <record id="view_impersonation_log_form" model="ir.ui.view">
@@ -52,9 +52,9 @@
                     </group>
                     <group string="Optional ORM action metadata" invisible="not detail_enabled">
                         <field name="action_ids" nolabel="1">
-                            <list create="false" edit="false" delete="false">
+                            <tree create="false" edit="false" delete="false">
                                 <field name="event_time"/><field name="operation"/><field name="model_name"/><field name="record_count"/>
-                            </list>
+                            </tree>
                         </field>
                     </group>
                 </sheet>

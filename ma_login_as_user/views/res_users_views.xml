@@ -17,7 +17,7 @@
         <field name="model_id" ref="base.model_res_users"/>
         <field name="binding_model_id" ref="base.model_res_users"/>
         <field name="binding_view_types">list</field>
-        <field name="group_ids" eval="[(4, ref('group_impersonation_manager'))]"/>
+        <field name="groups_id" eval="[(4, ref('group_impersonation_manager'))]"/>
         <field name="state">code</field>
         <field name="code">action = records.action_ma_login_as()</field>
     </record>

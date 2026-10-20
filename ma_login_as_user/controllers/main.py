@@ -52,7 +52,7 @@ class LoginAsUserController(http.Controller):
         if not request.env["ir.config_parameter"].sudo().get_param(
             "ma_login_as_user.allow_administrators", "False"
         ).lower() in {"1", "true", "yes", "on"}:
-            domain.append(("group_ids", "not in", [request.env.ref("base.group_system").id]))
+            domain.append(("groups_id", "not in", [request.env.ref("base.group_system").id]))
         if request.env["ir.config_parameter"].sudo().get_param(
             "ma_login_as_user.allow_portal", "True"
         ).lower() in {"0", "false", "no", "off"}:
@@ -63,7 +63,7 @@ class LoginAsUserController(http.Controller):
             domain += ["|", "|", ("name", "ilike", query), ("login", "ilike", query), ("email", "ilike", query)]
         return domain
 
-    @http.route("/ma_login_as/status", type="jsonrpc", auth="user", methods=["POST"], csrf=False)
+    @http.route("/ma_login_as/status", type="json", auth="user", methods=["POST"], csrf=False)
     def status(self, csrf_token=None):
         self._csrf(csrf_token)
         manager = self._manager()
@@ -108,7 +108,7 @@ class LoginAsUserController(http.Controller):
             ][:5]
         return payload
 
-    @http.route("/ma_login_as/search", type="jsonrpc", auth="user", methods=["POST"], csrf=False)
+    @http.route("/ma_login_as/search", type="json", auth="user", methods=["POST"], csrf=False)
     def search_users(self, query="", offset=0, csrf_token=None):
         self._csrf(csrf_token)
         manager = self._manager()
@@ -127,7 +127,7 @@ class LoginAsUserController(http.Controller):
             allowed.append(self._user_payload(user, manager))
         return {"users": allowed, "offset": offset, "hasMore": len(users) == 50}
 
-    @http.route("/ma_login_as/favorite", type="jsonrpc", auth="user", methods=["POST"], csrf=False)
+    @http.route("/ma_login_as/favorite", type="json", auth="user", methods=["POST"], csrf=False)
     def favorite(self, target_id=None, favorite=False, csrf_token=None):
         self._csrf(csrf_token)
         manager = self._manager()
@@ -144,7 +144,7 @@ class LoginAsUserController(http.Controller):
             Preference.create({"owner_id": manager.id, "target_id": target.id, "favorite": bool(favorite)})
         return {"ok": True}
 
-    @http.route("/ma_login_as/switch", type="jsonrpc", auth="user", methods=["POST"], csrf=False)
+    @http.route("/ma_login_as/switch", type="json", auth="user", methods=["POST"], csrf=False)
     def switch(self, target_id=None, reason="", csrf_token=None):
         self._csrf(csrf_token)
         manager = self._manager()
@@ -226,7 +226,7 @@ class LoginAsUserController(http.Controller):
         request.update_env(user=target.id, context=context)
         return {"ok": True, "reload": True, "redirect": "/my" if target.share else "/web"}
 
-    @http.route("/ma_login_as/return", type="jsonrpc", auth="user", methods=["POST"], csrf=False)
+    @http.route("/ma_login_as/return", type="json", auth="user", methods=["POST"], csrf=False)
     def return_to_admin(self, csrf_token=None):
         self._csrf(csrf_token)
         manager_id = request.session.get("ma_impersonator_uid")
@@ -253,7 +253,7 @@ class LoginAsUserController(http.Controller):
         request.update_env(user=manager.id, context=context)
         return {"ok": True, "reload": True}
 
-    @http.route("/ma_login_as/logout_audit", type="jsonrpc", auth="user", methods=["POST"], csrf=False)
+    @http.route("/ma_login_as/logout_audit", type="json", auth="user", methods=["POST"], csrf=False)
     def logout_audit(self, csrf_token=None):
         self._csrf(csrf_token)
         log_id = request.session.get("ma_impersonation_log_id")

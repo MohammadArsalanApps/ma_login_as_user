@@ -84,7 +84,7 @@ def validate_target(env, manager, target):
     if scope == "groups":
         group_ids = params.get_param("ma_login_as_user.allowed_group_ids", "")
         allowed_ids = {int(value) for value in group_ids.split(",") if value.isdigit()}
-        if not allowed_ids or not (allowed_ids & set(target.group_ids.ids)):
+        if not allowed_ids or not (allowed_ids & set(target.groups_id.ids)):
             raise UserError(_("This account is outside the permitted group scope."))
     if not (manager_companies & target_companies):
         raise UserError(_("This account is outside the permitted company scope."))

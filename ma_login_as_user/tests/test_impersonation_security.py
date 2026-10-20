@@ -17,14 +17,14 @@ class TestImpersonationSecurity(TransactionCase):
             "login": "demo.audit.manager",
             "company_id": cls.company.id,
             "company_ids": [(6, 0, [cls.company.id])],
-            "group_ids": [(6, 0, [cls.internal_group.id, cls.manager_group.id])],
+            "groups_id": [(6, 0, [cls.internal_group.id, cls.manager_group.id])],
         })
         cls.target = cls.env["res.users"].create({
             "name": "Demo Target User",
             "login": "demo.target.user",
             "company_id": cls.company.id,
             "company_ids": [(6, 0, [cls.company.id])],
-            "group_ids": [(6, 0, [cls.internal_group.id])],
+            "groups_id": [(6, 0, [cls.internal_group.id])],
         })
 
     def test_self_and_root_are_rejected(self):

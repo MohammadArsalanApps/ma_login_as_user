@@ -9,8 +9,8 @@ def post_init_hook(env):
     manager_group = env.ref(
         "ma_login_as_user.group_impersonation_manager", raise_if_not_found=False
     )
-    if admin and manager_group and manager_group not in admin.group_ids:
-        admin.write({"group_ids": [(4, manager_group.id)]})
+    if admin and manager_group and manager_group not in admin.groups_id:
+        admin.write({"groups_id": [(4, manager_group.id)]})
         env["ir.logging"].sudo().create({
             "name": "Login as Any User",
             "type": "server",

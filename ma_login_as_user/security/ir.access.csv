@@ -1,0 +1,5 @@
+id,name,model_id,group_id/id,operation,domain
+access_impersonation_log_manager,impersonation log manager,ma.impersonation.log,ma_login_as_user.group_impersonation_manager,r,"[('company_id', 'in', company_ids)]"
+access_impersonation_log_auditor,impersonation log auditor,ma.impersonation.log,ma_login_as_user.group_impersonation_auditor,r,"[('company_id', 'in', company_ids)]"
+access_impersonation_action_manager,impersonation action manager,ma.impersonation.action,ma_login_as_user.group_impersonation_manager,r,"[('log_id.company_id', 'in', company_ids)]"
+access_impersonation_action_auditor,impersonation action auditor,ma.impersonation.action,ma_login_as_user.group_impersonation_auditor,r,"[('log_id.company_id', 'in', company_ids)]"

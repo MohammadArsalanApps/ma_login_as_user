@@ -1,3 +1,4 @@
+from . import config_parameter
 from . import impersonation_log
 from . import impersonation_action
 from . import impersonation_preference

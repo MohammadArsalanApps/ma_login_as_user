@@ -1,7 +1,7 @@
 {
     "name": "Login as Any User",
-    "summary": "Audited, permission-aware user session switching for Odoo 19 on-premise",
-    "version": "19.0.1.0.0",
+    "summary": "Audited, permission-aware user session switching for Odoo 20 on-premise",
+    "version": "20.0.1.0.0",
     "category": "Administration/Settings",
     "author": "MA Software Solutions",
     "license": "LGPL-3",
@@ -10,8 +10,7 @@
     "depends": ["base", "web", "mail"],
     "data": [
         "security/groups.xml",
-        "security/ir.model.access.csv",
-        "security/record_rules.xml",
+        "security/ir.access.csv",
         "views/res_config_settings_views.xml",
         "views/res_users_views.xml",
         "views/impersonation_log_views.xml",

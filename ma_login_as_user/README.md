@@ -1,13 +1,13 @@
-# Login as Any User (Odoo 19.0)
+# Login as Any User (Odoo 20.0)
 
 This on-premise add-on lets explicitly authorized administrators open an eligible user's Odoo session and return to their original account. The target user remains the effective Odoo user: record rules, access rights, chatter attribution, and `create_uid` / `write_uid` operate as that user. Every switch creates a read-only audit event.
 
 ## Supported environment
 
-- Detected and implemented for Odoo 19.0 Enterprise source `19.0+e.20260211`, installed on-premise.
-- The inspected core session uses `session.uid`, `session.login`, `session.context`, and `session.session_token`. Requests validate the active user's session token. Session rotation recomputes the token for the new session ID. In Odoo 19, MFA authentication finalizes the session only after MFA; this add-on requires an already authenticated manager session and does not bypass the manager's own MFA.
+- This branch targets Odoo 20.0 on-premise (Community or Enterprise); it has no Enterprise-only dependency.
+- The module requires an already authenticated manager session and does not disable or bypass Odoo's configured multi-factor authentication.
 - Odoo core's Lunch app has a feature-specific manager-only impersonation check; the inspected build did not contain a general user-switch tool.
-- Other Odoo majors are not claimed as compatible. Session and frontend extension APIs vary by version; port the controller/session checks and OWL integration separately for 17, 18, or 20.
+- The 20.0 branch uses Odoo 20's JSON-RPC route and frontend RPC APIs. Use the matching branch for other Odoo major versions.
 
 ## Installation and setup
 

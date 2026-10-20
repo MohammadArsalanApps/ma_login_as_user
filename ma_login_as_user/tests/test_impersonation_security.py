@@ -69,5 +69,15 @@ class TestImpersonationSecurity(TransactionCase):
                 "database_name": self.env.cr.dbname,
             })
 
+    def test_manager_can_read_company_audit(self):
+        log = self.env["ma.impersonation.log"]._create_event({
+            "admin_id": self.manager.id,
+            "target_id": self.target.id,
+            "company_id": self.company.id,
+            "database_name": self.env.cr.dbname,
+        })
+        manager_logs = self.env["ma.impersonation.log"].with_user(self.manager)
+        self.assertEqual(manager_logs.search_count([("id", "=", log.id)]), 1)
+
     def test_retention_job_runs(self):
         self.env["ma.impersonation.log"]._purge_expired()

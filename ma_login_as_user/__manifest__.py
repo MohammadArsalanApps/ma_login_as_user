@@ -26,7 +26,7 @@
             "ma_login_as_user/static/src/scss/impersonation.scss",
         ],
     },
-    "images": ["static/description/banner.png"],
+    "images": ["static/description/banner_animated.gif"],
     "post_init_hook": "post_init_hook",
     "installable": True,
     "application": False,

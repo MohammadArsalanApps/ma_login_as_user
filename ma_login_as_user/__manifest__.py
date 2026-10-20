@@ -1,7 +1,7 @@
 {
     "name": "Login as Any User",
     "summary": "Audited, permission-aware user session switching for Odoo 19 on-premise",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "category": "Administration/Settings",
     "author": "MA Software Solutions",
     "license": "LGPL-3",
